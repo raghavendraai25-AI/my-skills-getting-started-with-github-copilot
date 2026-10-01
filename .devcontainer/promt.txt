@@ -1,0 +1,4 @@
+    
+Changed the participant control from × to a visible Delete button, styled to match Sign Up while keeping a red destructive-action color. The unregister behavior is unchanged. JavaScript and CSS diagnostics are clean.
+
+Move the  unregister feedback into each participant row, directly below its Delete button, and use the exact success text returned by the API.  

@@ -109,6 +109,30 @@ section h3 {
   overflow-wrap: anywhere;
 }
 
+.participant-actions {
+  display: flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.participant-feedback {
+  max-width: 260px;
+  margin: 0;
+  font-size: 0.8rem;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.participant-feedback.success {
+  color: #2e7d32;
+}
+
+.participant-feedback.error {
+  color: #c62828;
+}
+
 .remove-participant {
   flex: 0 0 auto;
   padding: 10px 15px;

@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const messageDiv = document.getElementById("message");
 
-  async function unregisterParticipant(activity, email, button) {
+  async function unregisterParticipant(activity, email, button, feedback) {
     button.disabled = true;
 
     try {
@@ -18,20 +18,14 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(result.detail || "Failed to remove participant");
       }
 
-      messageDiv.textContent = result.message;
-      messageDiv.className = "success";
-      messageDiv.classList.remove("hidden");
-      await fetchActivities();
+      feedback.textContent = result.message;
+      feedback.className = "participant-feedback success";
+      setTimeout(() => fetchActivities(), 3000);
     } catch (error) {
-      messageDiv.textContent = error.message || "Failed to remove participant. Please try again.";
-      messageDiv.className = "error";
-      messageDiv.classList.remove("hidden");
+      feedback.textContent = error.message || "Failed to remove participant. Please try again.";
+      feedback.className = "participant-feedback error";
       button.disabled = false;
     }
-
-    setTimeout(() => {
-      messageDiv.classList.add("hidden");
-    }, 5000);
   }
 
   // Function to fetch activities from API
@@ -80,11 +74,20 @@ document.addEventListener("DOMContentLoaded", () => {
             removeButton.textContent = "Delete";
             removeButton.title = `Remove ${participant} from ${name}`;
             removeButton.setAttribute("aria-label", `Remove ${participant} from ${name}`);
+
+            const participantActions = document.createElement("div");
+            participantActions.className = "participant-actions";
+
+            const feedback = document.createElement("p");
+            feedback.className = "participant-feedback";
+            feedback.setAttribute("aria-live", "polite");
+
             removeButton.addEventListener("click", () => {
-              unregisterParticipant(name, participant, removeButton);
+              unregisterParticipant(name, participant, removeButton, feedback);
             });
 
-            participantItem.append(participantName, removeButton);
+            participantActions.append(removeButton, feedback);
+            participantItem.append(participantName, participantActions);
             participantsList.appendChild(participantItem);
           });
           participantsSection.appendChild(participantsList);

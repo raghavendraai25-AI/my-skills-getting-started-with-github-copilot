@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const removeButton = document.createElement("button");
             removeButton.type = "button";
             removeButton.className = "remove-participant";
-            removeButton.textContent = "×";
+            removeButton.textContent = "Delete";
             removeButton.title = `Remove ${participant} from ${name}`;
             removeButton.setAttribute("aria-label", `Remove ${participant} from ${name}`);
             removeButton.addEventListener("click", () => {
